@@ -1,0 +1,23 @@
+import empleador.*
+import empleado.*
+
+test "empleador sabe decirnos de cuanto es el fondo para sueldos" {
+	assert.equals(3000000, gimenez.fondoParaSueldos())
+}
+
+test "al pagarle a gimenez se descuenta el sueldo del mismo, de los fondos" {
+	gimenez.pagarSueldoA(galvan)
+	assert.equals(2850000, gimenez.fondoParaSueldos())
+}
+
+test "al pagarle a baigorria se descuenta el sueldo del mismo, de los fondos" {
+	baigorria.cantidadDeEmpanadasVendidas(500)
+	gimenez.pagarSueldoA(baigorria)
+	assert.equals(2925000, gimenez.fondoParaSueldos())
+}
+
+test "al pagarle a baigorria se le suma el sueldo a su total cobrado" {
+	baigorria.cantidadDeEmpanadasVendidas(500)
+	gimenez.pagarSueldoA(baigorria)
+	assert.equals(75000, baigorria.totalCobrado())
+}
