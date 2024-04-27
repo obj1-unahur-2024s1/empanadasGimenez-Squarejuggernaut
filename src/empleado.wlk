@@ -1,6 +1,8 @@
 object galvan {
 
 	var sueldo = 150000
+	var deuda = 0
+	var dinero = 0
 
 	method sueldo() = sueldo
 	
@@ -8,8 +10,19 @@ object galvan {
 		sueldo = nuevoSueldo
 	}
 	
-	method cobrarSueldo() {}
+	method cobrarSueldo() {
+		dinero += sueldo
+	}
 	
+	method gastar(cuanto) {
+		if(self.leAlcanza(cuanto)) dinero -= cuanto else deuda += cuanto 
+	}
+	
+	method totalDeuda() = 0.max(deuda - dinero)
+	
+	method totalDinero() = 0.max(dinero - deuda)
+	
+	method leAlcanza(cuanto) = dinero >= cuanto
 }
 
 object baigorria {

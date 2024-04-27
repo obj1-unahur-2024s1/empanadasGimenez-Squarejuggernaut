@@ -1,0 +1,44 @@
+import empleado.*
+
+test "galvan inicia con 0 deuda y 0 dinero" {
+	assert.equals(0, galvan.totalDinero())
+	assert.equals(0, galvan.totalDeuda())
+}
+
+test "si galvan gasta 40000 sin haber cobrado nada su deuda incrementa y el dinero queda en 0" {
+	galvan.gastar(40000)
+	assert.equals(0, galvan.totalDinero())
+	assert.equals(40000, galvan.totalDeuda())
+}
+
+test "si galvan gasta 40000 y luego 80000 sin haber cobrado nada su deuda incrementa y el dinero queda en 0" {
+	galvan.gastar(40000)
+	galvan.gastar(80000)
+	assert.equals(0, galvan.totalDinero())
+	assert.equals(120000, galvan.totalDeuda())
+}
+
+test "si galván cobra y tiene 120000 en deuda paga toda su deuda y le sobran 30000 pesos" {
+	galvan.gastar(120000)
+	galvan.cobrarSueldo()
+	assert.equals(0, galvan.totalDeuda())
+	assert.equals(30000, galvan.totalDinero())
+}
+
+test "si galván tiene 30000 de dinero y gasta 250000 paga una parte de la deuda" {
+	galvan.gastar(120000)
+	galvan.cobrarSueldo()
+	galvan.gastar(250000)
+	assert.equals(220000, galvan.totalDeuda())
+	assert.equals(0, galvan.totalDinero())
+}
+
+test "si galván tiene 220000 de deuda y cobra su sueldo, pagará una parte de la deuda" {
+	galvan.gastar(120000)
+	galvan.cobrarSueldo()
+	galvan.gastar(250000)
+	galvan.cobrarSueldo()
+	assert.equals(70000, galvan.totalDeuda())
+	assert.equals(0, galvan.totalDinero())
+}
+
